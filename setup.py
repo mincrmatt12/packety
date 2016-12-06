@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name="packety",
-    version="0.0.6a1",
+    version="0.0.6a2",
     packages=["packety"],
     install_requires=["gevent"],
 
