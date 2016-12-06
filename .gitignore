@@ -1,3 +1,5 @@
-dist
-build
-packety.egg-info
+dist/
+build/
+packety.egg-info/
+.idea/
+*.pyc
