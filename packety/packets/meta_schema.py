@@ -4,15 +4,29 @@ import struct
 class SchemaType:
     py_type = type(None)
 
-    def __init__(self, default=None):
+    def __init__(self, default=None, validators=None):
+        if validators is None:
+            validators = []
         self.name = ""
         self.default = self.py_type(default) if default is not None else self.py_type()
+        self.validators = validators
 
     def read_from(self, file_like):
         pass
 
     def write_to(self, val):
         pass
+
+    def valid(self, value):
+        """
+
+        :rtype: bool
+        """
+        for validator in self.validators:
+            if not validator.valid(value):
+                return False
+        if self.value_valid(value):
+            return True
 
     def value_valid(self, val):
         return True
@@ -21,8 +35,8 @@ class SchemaType:
 class SchemaList(SchemaType):
     py_type = list
 
-    def __init__(self, child_type, default=None):
-        super().__init__(default=default)
+    def __init__(self, child_type, default=None, validators=[]):
+        super().__init__(default=default, validators=validators)
         self.child_type = child_type
 
     def read_from(self, file_like):

@@ -1,11 +1,11 @@
 import os
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name="packety",
-    version="0.0.6a2",
-    packages=["packety"],
+    version="0.0.6a3",
+    packages=find_packages(exclude=("tests")),
     install_requires=["gevent"],
 
     author="mincrmatt12",

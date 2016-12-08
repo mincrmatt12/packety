@@ -7,6 +7,8 @@ all_packets = {}
 
 
 class Packet(object):
+    packet_id = -1
+
     def __new__(cls, *args, **kwargs):
         obj = super(Packet, cls).__new__(cls)
 
@@ -30,8 +32,8 @@ class Packet(object):
         obj.__schema__ = schema
         obj.__schema_names__ = schema_names
 
-        if not hasattr(obj, "packet_id"):
-            raise ValueError('''Packet does not have id, cannot create new packets''')
+        if cls.packet_id < 0:
+            raise ValueError('''Packet does not have id or invalid id, cannot create new packets''')
 
         return obj
 
@@ -45,6 +47,7 @@ class Packet(object):
 
     def _read_into_self(self, file_like_object):
         # the packets id and 2 null bytes have already been read by other code
+
         for value in self.__schema__:
             name = value.name
             returned = value.read_from(file_like_object)
