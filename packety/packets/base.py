@@ -50,8 +50,8 @@ class Packet(object):
 
         for value in self.__schema__:
             name = value.name
-            returned = value.read_from(file_like_object)
-            if value.value_valid(returned) is False:
+            returned = value.read_from_file(file_like_object)
+            if value.valid(returned) is False:
                 raise ValueError('''Invalid data''')
             setattr(self, name, returned)
             file_like_object.read(1)  # discard separator null
@@ -70,7 +70,7 @@ class Packet(object):
         buf = struct.pack("!Hx", self.packet_id)
         for value in self.__schema__:
             value_data = getattr(self, value.name)
-            if not value.value_valid(value.py_type(value_data)):
+            if not value.valid(value.py_type(value_data)):
                 raise ValueError("""Invalid value for {}: {}""".format(value.name, value_data))
             buf += value.write_to(value.py_type(value_data))
             buf += bytes("\x00", encoding="ascii")

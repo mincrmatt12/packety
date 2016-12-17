@@ -34,6 +34,14 @@ class Not:
         return not self.qual.valid(v)
 
 
+class All:
+    def __init__(self, *args):
+        self.validators = args
+
+    def valid(self, v):
+        return all((x.valid(v) for x in self.validators))
+
+
 class IsOneOf:
     def __init__(self, ok_values):
         self.ok_values = ok_values

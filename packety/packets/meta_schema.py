@@ -1,5 +1,7 @@
 import struct
 
+from io import BytesIO
+
 
 class SchemaType:
     py_type = type(None)
@@ -16,6 +18,12 @@ class SchemaType:
 
     def write_to(self, val):
         pass
+
+    def read_from_file(self, file_like):
+        return self.read_from(file_like)
+
+    def read_from_bytes(self, bytes_):
+        return self.read_from(BytesIO(bytes_))
 
     def valid(self, value):
         """
