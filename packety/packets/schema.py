@@ -31,12 +31,6 @@ class SignedInt(SchemaType):
 class String(SchemaType):
     py_type = str
 
-    def __init__(self, default=None, validators=None, max_len=-1):
-        super().__init__(default=default, validators=validators)
-        self.max_len = min(max_len, 32768)
-        if self.max_len != -1 and self.max_len <= 0:
-            raise ValueError('''max_len cannot be less than or equal to zero 0''')
-
     def read_from(self, file_like):
         str_length = struct.unpack("!H", file_like.read(2))[0]
         data = file_like.read(str_length).decode("utf-8")
@@ -50,7 +44,7 @@ class String(SchemaType):
         return base
 
     def value_valid(self, val):
-        return len(val) < 32768 if self.max_len == -1 else self.max_len
+        return len(val) < 32768
 
 
 class Boolean(SchemaType):

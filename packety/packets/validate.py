@@ -14,7 +14,7 @@ class Greater:
         self.minimum = minimum
 
     def valid(self, v):
-        return (v > self.minimum) if self.or_equal else (v >= self.minimum)
+        return (v > self.minimum) if not self.or_equal else (v >= self.minimum)
 
 
 class Smaller:
@@ -23,7 +23,7 @@ class Smaller:
         self.minimum = maximum
 
     def valid(self, v):
-        return (v < self.minimum) if self.or_equal else (v <= self.minimum)
+        return (v < self.minimum) if not self.or_equal else (v <= self.minimum)
 
 
 class Not:
