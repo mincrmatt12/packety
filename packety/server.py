@@ -35,12 +35,12 @@ class PacketReader:
 class PacketWriter:
     def __init__(self, incoming_packets, sock):
         self.buf = incoming_packets
-        self.sock = sock.makefile("wb")
+        self.sock = sock
 
     def run(self):
         while True:
             outgoing = self.buf.get() # type: packets.Packet
-            self.sock.write(outgoing.write_out())
+            self.sock.send(outgoing.write_out())
 
 
 class BaseConnection:

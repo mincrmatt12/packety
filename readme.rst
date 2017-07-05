@@ -27,3 +27,8 @@ Initial release
 =====
 
 - removed String.max_len, as it is superseded by validators
+
+0.1.3
+=====
+
+* bugfixes
