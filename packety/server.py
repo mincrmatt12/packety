@@ -17,7 +17,7 @@ def block_read_packet(sck):
 
 
 class PacketReader:
-    def __init__(self, outgoing_packets: Queue, sock: socket, parent):
+    def __init__(self, outgoing_packets, sock, parent):
         self.buf = outgoing_packets
         self.sock = sock
         self.parent = parent
@@ -33,7 +33,7 @@ class PacketReader:
 
 
 class PacketWriter:
-    def __init__(self, incoming_packets: Queue, sock: socket):
+    def __init__(self, incoming_packets, sock):
         self.buf = incoming_packets
         self.sock = sock.makefile("wb")
 
